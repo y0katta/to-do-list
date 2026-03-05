@@ -4,6 +4,8 @@ const Field = (props) => { //Возвращает разметку формы п
         id,
         label, 
         type = 'text',
+        onInput,
+        value
     } = props
 
     return (
@@ -20,6 +22,8 @@ const Field = (props) => { //Возвращает разметку формы п
                 placeholder=" "
                 autoComplete="off"
                 type={type}
+                value={value}
+                onInput={onInput}
             />
         </div>
     )
