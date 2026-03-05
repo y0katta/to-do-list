@@ -2,7 +2,9 @@ import TodoItem from "./TodoItem"
 
 const TodoList = (props) => {
     const {
-      tasks = [] //массив объектов с полями title, id, isDone
+      tasks = [], //массив объектов с полями title, id, isDone
+      onDeleteTaskButtonClick,
+      onTaskCompleteChange,
     } = props 
 
     const hasTasks = true
@@ -15,14 +17,13 @@ const TodoList = (props) => {
 
     return (
         <ul className="todo__list">
-            {tasks.map(({id, title, isDone}) => ( //Деструктурированная сущность task
+            {tasks.map((task) => ( //Деструктурированная сущность task
               <TodoItem
               className="todo__item"
-              id={id} //title.id
-              title={title}
-              isDone={isDone}
-              key={id}
-              //{...task}
+              key={task.id}
+              {...task}
+              onDeleteTaskButtonClick={onDeleteTaskButtonClick}
+              onTaskCompleteChange={onTaskCompleteChange}
               />
               ))}
       </ul>
