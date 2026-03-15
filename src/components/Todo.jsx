@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef, useCallback, useMemo} from 'react'
 import AddTaskForm from "./AddTaskForm"
 import SearchTaskForm from "./SearchTaskForm"
 import TodoInfo from "./TodoInfo"
@@ -28,20 +28,20 @@ const Todo = () => {
     const firstIncompleteTaskRef = useRef(null)
     const firstIncompleteTaskId = tasks.find(({isDone}) => !isDone)?.id
 
-    const deleteAllTasks = () => {
+    const deleteAllTasks = useCallback(() => {
         const isConfirmed = confirm('Are you sure you want to delete all?')
         if(isConfirmed){
             setTasks([])
         }
-    }
+    }, [])
 
-    const deleteTask = (taskId) => {
+    const deleteTask = useCallback((taskId) => {
         setTasks(
             tasks.filter((task) => task.id !== taskId)
         )
-    }
+    }, [tasks])
 
-    const toggleTaskComplete = (taskId, isDone) => {
+    const toggleTaskComplete = useCallback((taskId, isDone) => {
         setTasks(
             tasks.map((task) =>  {
                 if(task.id == taskId){
@@ -50,10 +50,10 @@ const Todo = () => {
                 return task
             })
         )
-    }
+    }, [tasks])
 
 
-    const addTask = () => {
+    const addTask = useCallback(() => {
         if(newTaskTitle.trim().length > 0){
             const newTask = {
                 id: crypto?.randomUUID() ?? Date.now().toString(), //уникальный id
@@ -61,12 +61,12 @@ const Todo = () => {
                 isDone: false,
             }
 
-            setTasks([...tasks, newTask])
+            setTasks((prevTasks) => [...prevTasks, newTask])
             setNewTaskTitle('')
             setSearchQuery('')
             newTaskInputRef.current.focus()
         }
-    }
+    }, [newTaskTitle])
 
     useEffect(() => {
         localStorage.setItem('tasks', JSON.stringify(tasks))
@@ -76,10 +76,17 @@ const Todo = () => {
         newTaskInputRef.current.focus()
     }, [])
 
+    
+    const filteredTasks = useMemo(() => {
     const clearSearchQuery = searchQuery.trim().toLowerCase()
-    const filteredTasks = clearSearchQuery.length >  0 
+    return clearSearchQuery.length >  0 
     ? tasks.filter(({title}) => title.toLowerCase().includes(clearSearchQuery))
     : null
+    }, [searchQuery, tasks])
+
+    const doneTasks = useMemo(() => {
+        return tasks.filter(({isDone}) => isDone).length
+    }, [tasks])
 
     return (
     <div className="todo">
@@ -96,7 +103,7 @@ const Todo = () => {
         />
         <TodoInfo
         total={tasks.length}
-        done={tasks.filter(({isDone}) => isDone).length}
+        done={doneTasks}
         onDeleteAllButtonClick={deleteAllTasks}
         />
         <Button 
