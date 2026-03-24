@@ -1,4 +1,4 @@
-import { createContext} from "react";
+import { createContext, useMemo} from "react";
 import useTasks from "../hooks/useTasks";
 import useIncompleteTaskScroll from "../hooks/useIncompleteTaskScroll";
 
@@ -13,7 +13,6 @@ export const TasksProvider = (props) => {
         deleteTask,
         deleteAllTasks,
         toggleTaskComplete,
-
         newTaskTitle,
         setNewTaskTitle,
         searchQuery,
@@ -21,7 +20,7 @@ export const TasksProvider = (props) => {
         addTask,
         newTaskInputRef,
         disappearingTaskId,
-        appearingTaskId
+        appearingTaskId,
     } = useTasks()
 
     const {
@@ -29,27 +28,42 @@ export const TasksProvider = (props) => {
         firstIncompleteTaskId,
     } = useIncompleteTaskScroll(tasks)
 
-    return (
-    <TasksContext.Provider
-        value={{
-            tasks,
-            filteredTasks,
-            firstIncompleteTaskRef,
-            firstIncompleteTaskId,
-            deleteTask,
-            deleteAllTasks,
-            toggleTaskComplete,
+    const value = useMemo(() => ({
+        tasks,
+        filteredTasks,
+        deleteTask,
+        deleteAllTasks,
+        toggleTaskComplete,
+        newTaskTitle,
+        setNewTaskTitle,
+        searchQuery,
+        setSearchQuery,
+        addTask,
+        newTaskInputRef,
+        disappearingTaskId,
+        appearingTaskId,
+        firstIncompleteTaskRef,
+        firstIncompleteTaskId,
+    }), [tasks,
+        filteredTasks,
+        deleteTask,
+        deleteAllTasks,
+        toggleTaskComplete,
+        newTaskTitle,
+        setNewTaskTitle,
+        searchQuery,
+        setSearchQuery,
+        addTask,
+        newTaskInputRef,
+        disappearingTaskId,
+        appearingTaskId,
+        firstIncompleteTaskRef,
+        firstIncompleteTaskId,
+    ])
 
-            newTaskTitle,
-            setNewTaskTitle,
-            searchQuery,
-            setSearchQuery,
-            addTask,
-            newTaskInputRef,
-            disappearingTaskId,
-            appearingTaskId
-        }}
-    >
+    return (
+    <TasksContext.Provider 
+    value={value}>
         {children}
     </TasksContext.Provider>
     )
