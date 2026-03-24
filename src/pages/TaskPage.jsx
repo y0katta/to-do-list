@@ -31,9 +31,15 @@ const TaskPage = (props) => {
     }
 
     return (
-        <div>
+        <div style={{display: 'block', textAlign: 'center'}}>
             <h1>{task.title}</h1>
-            <p>{task.isDone ? 'Task complete' : 'Task inprogress'}</p>
+            <p>{task.isDone 
+            ? 'Task complete' 
+            : 'Task inprogress'}</p>
+            <div>
+                {task.isDone
+                ? <img src="https://masterpiecer-images.s3.yandex.net/0f44eac3764d11ee9ad5ceda526c50ab:upscaled"></img>
+                : <img src="https://avatars.mds.yandex.net/i?id=af3d1300588758a3ffafcb6239ed10f8_l-3858847-images-thumbs&n=13"></img>}</div>
         </div>
     )
 }
