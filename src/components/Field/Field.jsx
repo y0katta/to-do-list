@@ -21,7 +21,7 @@ const Field = (props) => {
                 {label}
             </label>
             <input
-                className={`${styles.input} ${error ? 'styles.isInvalid' : ''}`}
+                className={`${styles.input} ${error ? styles.isInvalid : ''}`}
                 id={id}
                 placeholder=" "
                 autoComplete="off"
