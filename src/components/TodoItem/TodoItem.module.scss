@@ -79,6 +79,12 @@
   pointer-events: none;
 }
 
+.href {
+  text-decoration: none; 
+  color: inherit; 
+  cursor: pointer;
+}
+
 .deleteButton {
   flex-shrink: 0;
   display: inline-flex;
