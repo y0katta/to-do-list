@@ -7,14 +7,17 @@ const SearchTaskForm = (props) => {
 
     const {
         searchQuery,
-        setSearchQuery
+        setSearchQuery,
     } = useContext(TasksContext)
+
+    const handleClear = () => setSearchQuery('')
 
     return (
         <form 
         className={styles.form}
         onSubmit={(event) => event.preventDefault()}
         >
+        <div className={styles.searchWrapper}>
         <Field
             className={styles.field}
             label="Search task"
@@ -23,6 +26,17 @@ const SearchTaskForm = (props) => {
             value={searchQuery}
             onInput={(event) => setSearchQuery(event.target.value)}
         />
+        {searchQuery && (
+                    <button
+                        type="button"
+                        onClick={handleClear}
+                        className={styles.clearButton}
+                        aria-label="Очистить поиск"
+                    >
+                        ✕
+                    </button>
+                )}
+            </div>
         </form>
     )
 }
