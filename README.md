@@ -34,7 +34,6 @@ A modern and convenient task management application (To-Do List) built with Reac
 ![CSS3](https://img.shields.io/badge/-CSS3-2D2D2D?style=flat-square&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-2D2D2D?style=flat-square&logo=javascript&logoColor=white)
 ![React](https://img.shields.io/badge/-React-2D2D2D?style=flat-square&logo=react&logoColor=white)
-![SASS](https://img.shields.io/badge/-SASS-2D2D2D?style=flat-square&logo=sass&logoColor=white)
 ![Vite](https://img.shields.io/badge/-Vite-2D2D2D?style=flat-square&logo=vite&logoColor=white)
 ![SCSS](https://img.shields.io/badge/-SCSS-2D2D2D?style=flat-square&logo=sass&logoColor=white)
 ![JSX](https://img.shields.io/badge/-JSX-2D2D2D?style=flat-square&logo=react&logoColor=white)
